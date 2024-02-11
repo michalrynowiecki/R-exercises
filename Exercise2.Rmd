@@ -1,0 +1,114 @@
+---
+title: "Applied Statistics -- Exercise 2"
+output:
+  pdf_document: default
+---
+
+# Problems
+
+**1.**
+
+a)  Compute $\frac{74+5}{(2 \cdot 3)^5}$ and assign the name `calculation` to the result. Print `calculation` to the console.
+
+```{r}
+calculation <- (74+5) / (2*3)^5
+print(calculation)
+```
+
+b)  Define a vector months containing the numbers 29, 63, 7, 23, 84, 10 and 9. Compute a vector years from it by dividing months by 12.
+
+```{r}
+months <- c(29, 63, 7, 23, 84, 10, 9)
+years <- months/12
+```
+
+c)  Check whether the string “R rules!” is equal to “r rules!” for R.
+
+```{r}
+"R rules!" == "r rules!"
+```
+
+d)  In a fictitious medical study patients should be excluded from the study if they weigh more than 90 kg or if they are either younger than 18 years or older than 60 years. Define the variable age as `age <- c(50, 17, 39, 27, 90)` and the variable weight as `weight <- c(80, 75, 92, 105, 60)`. Then write a logical statement involving these two variables that tests for the exclusion criteria.
+
+```{r}
+age <- c(50, 17, 39, 27, 90)
+weight <- c(80, 75, 92, 105, 60)
+
+age < 18 | age > 60 | weight > 90
+```
+
+**2.** The data set `rivers` contains the lengths of 141 major rivers in North America.
+
+a)  What proportion are less than 500 miles long?
+
+```{r}
+sum(rivers<500)/length(rivers)
+```
+
+b)  What proportion are less than the mean length?
+
+```{r}
+sum(rivers<mean(rivers)) / length(rivers)
+```
+
+c)  What is the 0.75 quantile?
+
+```{r}
+quantile(rivers)[4]
+```
+
+**3.** Sample 5 random numbers from the normal (Gaussian) distribution with a mean of $2$ and a standard deviation of $1/5$. (**Hint** look up the help file using `?rnorm`)
+
+```{r}
+x <- rnorm(5, mean = 2, sd = 1/5)
+```
+
+a)  Calculate the mean and standard deviation of the generated samples.
+
+```{r}
+mean(x)
+sd(x)
+```
+
+b)  Make a histogram of the generated samples.
+
+```{r}
+hist(x)
+```
+
+c)  What happens to the mean and standard deviation when you increase the number of samples to 100, how about 10000?
+
+```{r}
+y <- rnorm(100, mean = 2, sd = 1/5)
+mean(y)
+sd(y)
+
+z <- rnorm(1000, mean = 2, sd = 1/5)
+mean(z)
+sd(z)
+```
+
+ANSWER: Standard deviation gets closer to 1/5 and mean gets closer to 2.
+
+d)  Add the theoretical distribution to the plot using the `lines` function.
+
+    QUESTION: Is it about the sub
+
+```{r}
+i <- rnorm(1000)
+
+hist(i, freq = FALSE)
+fit1 <- seq(min(i), max(i), length = 100) 
+fit2 <- dnorm(fit1)
+
+lines(fit1, fit2)
+
+hist(x, freq = FALSE)
+fitb1 <- seq(min(x),max(x), length = 100)
+fitb2 <- dnorm(fitb1)
+
+lines(fitb1, fitb2)
+
+```
+
+(**Hint** First define a suitable interval in a `vector` then get the corresponding probabilities with the `dnorm` function. You need to use the `freq = FALSE` argument in the `hist` function to produce a normalized histogram.)
